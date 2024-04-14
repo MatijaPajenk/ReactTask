@@ -1,29 +1,33 @@
-var express = require('express');
+var express = require('express')
 // Vključimo multer za file upload
-var multer = require('multer');
-var upload = multer({dest: 'public/images/'});
+var multer = require('multer')
+var upload = multer({ dest: 'public/images/' })
 
-var router = express.Router();
-var photoController = require('../controllers/photoController.js');
+var router = express.Router()
+var photoController = require('../controllers/photoController.js')
 
-function requiresLogin(req, res, next){
-    if(req.session && req.session.userId){
-        return next();
-    } else{
-        var err = new Error("You must be logged in to view this page");
-        err.status = 401;
-        return next(err);
+function requiresLogin(req, res, next) {
+    if (req.session && req.session.userId) {
+        return next()
+    } else {
+        var err = new Error("You must be logged in to view this page")
+        err.status = 401
+        return next(err)
     }
 }
 
-router.get('/', photoController.list);
+router.get('/', photoController.list)
+router.get('/like/:photoId/:userId', photoController.like)
+router.get('/dislike/:photoId/:userId', photoController.dislike)
+router.get('/unlike/:photoId/:userId', photoController.unlike)
+router.get('/undislike/:photoId/:userId', photoController.undislike)
 //router.get('/publish', requiresLogin, photoController.publish);
-router.get('/:id', photoController.show);
+router.get('/:id/:userId', photoController.show)
 
-router.post('/', requiresLogin, upload.single('image'), photoController.create);
+router.post('/', requiresLogin, upload.single('image'), photoController.create)
 
-router.put('/:id', photoController.update);
+router.put('/:id', photoController.update)
 
-router.delete('/:id', photoController.remove);
+router.delete('/:id', photoController.remove)
 
-module.exports = router;
+module.exports = router
