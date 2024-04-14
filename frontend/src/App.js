@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { UserContext } from "./userContext";
-import Header from "./components/Header";
-import Photos from "./components/Photos";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Profile from "./components/Profile";
-import Logout from "./components/Logout";
-import AddPhoto from "./components/AddPhoto";
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { UserContext } from "./userContext"
+import Header from "./components/Header"
+import Photos from "./components/Photos"
+import Login from "./components/Login"
+import Register from "./components/Register"
+import Profile from "./components/Profile"
+import Logout from "./components/Logout"
+import AddPhoto from "./components/AddPhoto"
 
 function App() {
   /**
@@ -24,10 +24,10 @@ function App() {
    * Context se osveži, vsakič ko osvežimo aplikacijo v brskalniku. Da preprečimo neželeno odjavo uporabnika,
    * lahko context trajno hranimo v localStorage v brskalniku.
    */
-  const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
+  const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null)
   const updateUserData = (userInfo) => {
-    localStorage.setItem("user", JSON.stringify(userInfo));
-    setUser(userInfo);
+    localStorage.setItem("user", JSON.stringify(userInfo))
+    setUser(userInfo)
   }
 
   /**
@@ -44,8 +44,8 @@ function App() {
         user: user,
         setUserContext: updateUserData
       }}>
-        <div className="App">
-          <Header title="My application"></Header>
+        <div className='container'>
+          <Header title="React Task"></Header>
           <Routes>
             <Route path="/" exact element={<Photos />}></Route>
             <Route path="/login" exact element={<Login />}></Route>
@@ -57,7 +57,7 @@ function App() {
         </div>
       </UserContext.Provider>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
