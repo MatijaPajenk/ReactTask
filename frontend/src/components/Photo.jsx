@@ -3,7 +3,6 @@ import "../styles/photo.css"
 function Photo({ photo }) {
   const baseUrl = "http://localhost:3001"
   const photoUrl = `/photos/${photo._id}`
-  console.log(photo)
   return (
     <article className="photoArticle">
       <a href={photoUrl} className="photo-link">
@@ -15,6 +14,7 @@ function Photo({ photo }) {
       <p className={photo.details ? "text-expanded" : "text-limited"}>
         {photo.description}
       </p>
+      <p>Views: {photo.views.length || 0}</p>
       <i>
         {photo.postedBy.username},<br />
         <small>{photo.postedOn}</small>
