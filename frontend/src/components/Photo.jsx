@@ -1,15 +1,25 @@
-function Photo(props) {
+import "../styles/photo.css"
+
+function Photo({ photo }) {
+  const baseUrl = "http://localhost:3001"
+  const photoUrl = `/photos/${photo._id}`
+  console.log(photo)
   return (
-    <div className="card bg-dark text-dark mb-2">
-      <img
-        className="card-img"
-        src={"http://localhost:3001/" + props.photo.path}
-        alt={props.photo.name}
-      />
-      <div className="card-img-overlay">
-        <h5 className="card-title">{props.photo.name}</h5>
-      </div>
-    </div>
+    <article className="photoArticle">
+      <a href={photoUrl} className="photo-link">
+        <h2 className={photo.details ? "text-expanded" : "text-limited"}>
+          {photo.title}
+        </h2>
+      </a>
+      <img className="photo" src={baseUrl + photo.path} alt={photo.title} />
+      <p className={photo.details ? "text-expanded" : "text-limited"}>
+        {photo.description}
+      </p>
+      <i>
+        {photo.postedBy.username},<br />
+        <small>{photo.postedOn}</small>
+      </i>
+    </article>
   )
 }
 

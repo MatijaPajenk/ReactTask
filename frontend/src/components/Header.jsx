@@ -3,10 +3,12 @@ import { Link } from "react-router-dom"
 
 function Header(props) {
   return (
-    <div>
+    <header>
       <nav>
         <ul>
-          <h1>{props.title}</h1>
+          <li>
+            <h2>{props.title}</h2>
+          </li>
         </ul>
         <ul>
           <li>
@@ -40,7 +42,7 @@ function Header(props) {
           </UserContext.Consumer>
         </ul>
       </nav>
-    </div>
+    </header>
   )
 }
 

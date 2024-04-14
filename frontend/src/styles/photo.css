@@ -1,0 +1,30 @@
+.photoArticle:hover {
+  & a > h2 {
+    transition: 0.4s all;
+    color: var(--pico-primary);
+    text-decoration: underline;
+  }
+}
+
+.photo {
+  height: 15em;
+  margin: 0.5em 0;
+  border: 2px solid var(--pico-color);
+  border-radius: 10px;
+}
+
+.text-limited {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-expanded {
+  overflow: visible;
+  white-space: normal;
+  text-align: justify;
+}
+
+.photo-link {
+  text-decoration: none;
+}

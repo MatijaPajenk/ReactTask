@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Photo from "./Photo"
+import React from "react"
 
 function Photos() {
   const [photos, setPhotos] = useState([])
