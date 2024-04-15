@@ -40,7 +40,12 @@ module.exports = {
         const id = req.params.id
         const userId = req.params.userId
 
-        PhotoModel.findByIdAndUpdate(id, { $addToSet: { views: userId } })
+        let update = {}
+        if (userId !== '') {
+            update = { $addToSet: { views: userId } }
+        }
+
+        PhotoModel.findByIdAndUpdate(id, update)
             .populate('postedBy')
             .exec(function (err, photo) {
                 if (err) {
@@ -151,69 +156,63 @@ module.exports = {
         })
     },
 
-    like: function (req, res) {
+    like: async function (req, res) {
         const photoId = req.params.photoId
         const userId = req.params.userId
 
-        PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { likes: userId }, $pull: { dislikes: userId } }, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when liking photo',
-                    error: err
-                })
-            }
-
+        try {
+            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { likes: userId }, $pull: { dislikes: userId } }, { new: true })
             return res.status(200).json(photo)
-        })
-    },
-
-    dislike: function (req, res) {
-        const photoId = req.params.photoId
-        const userId = req.params.userId
-
-        PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { dislikes: userId }, $pull: { likes: userId } }, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when disliking photo',
-                    error: err
-                })
-            }
-
-            return res.status(200).json(photo)
-        })
-    },
-
-    unlike: function (req, res) {
-        const photoId = req.params.photoId
-        const userId = req.params.userId
-
-        PhotoModel.findByIdAndUpdate(photoId, { $pull: { likes: userId } }, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when unliking photo',
-                    error: err
-                })
-            }
-
-            return res.status(200).json(photo)
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when liking photo',
+                error: err
+            })
         }
-        )
     },
 
-    undislike: function (req, res) {
+    dislike: async function (req, res) {
         const photoId = req.params.photoId
         const userId = req.params.userId
 
-        PhotoModel.findByIdAndUpdate(photoId, { $pull: { dislikes: userId } }, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when undisliking photo',
-                    error: err
-                })
-            }
-
+        try {
+            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { dislikes: userId }, $pull: { likes: userId } }, { new: true })
             return res.status(200).json(photo)
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when liking photo',
+                error: err
+            })
         }
-        )
+    },
+
+    unlike: async function (req, res) {
+        const photoId = req.params.photoId
+        const userId = req.params.userId
+
+        try {
+            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { likes: userId } }, { new: true })
+            return res.status(200).json(photo)
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when liking photo',
+                error: err
+            })
+        }
+    },
+
+    undislike: async function (req, res) {
+        const photoId = req.params.photoId
+        const userId = req.params.userId
+
+        try {
+            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { dislikes: userId } }, { new: true })
+            return res.status(200).json(photo)
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when liking photo',
+                error: err
+            })
+        }
     },
 }
