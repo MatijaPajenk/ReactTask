@@ -17,12 +17,11 @@ function requiresLogin(req, res, next) {
 }
 
 router.get('/', photoController.list)
-router.get('/like/:photoId/:userId', photoController.like)
-router.get('/dislike/:photoId/:userId', photoController.dislike)
-router.get('/unlike/:photoId/:userId', photoController.unlike)
-router.get('/undislike/:photoId/:userId', photoController.undislike)
-//router.get('/publish', requiresLogin, photoController.publish);
-router.get('/:id/:userId', photoController.show)
+router.get('/like/:photoId', photoController.like)
+router.get('/dislike/:photoId', photoController.dislike)
+router.get('/unlike/:photoId', photoController.unlike)
+router.get('/undislike/:photoId', photoController.undislike)
+router.get('/:id', photoController.show)
 
 router.post('/', requiresLogin, upload.single('image'), photoController.create)
 

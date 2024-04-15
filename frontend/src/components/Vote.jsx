@@ -11,9 +11,9 @@ function Vote({ photo }) {
 
   async function handleVote(vote) {
     try {
-      const res = await fetch(
-        `${baseUrl}/${vote}/${photo._id}/${userContext.user._id}`
-      )
+      const res = await fetch(`${baseUrl}/${vote}/${photo._id}`, {
+        credentials: "include",
+      })
       const data = await res.json()
       setLikes(data.likes)
       setDislikes(data.dislikes)

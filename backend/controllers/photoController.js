@@ -21,7 +21,7 @@ module.exports = {
                     })
                 }
 
-                photos = photos.map(function (photo) {
+                photos = photos.map((photo) => {
                     photo = photo.toObject()
                     photo.postedOn = new Date(photo.postedOn).toLocaleString()
                     photo.details = false
@@ -38,10 +38,10 @@ module.exports = {
      */
     show: function (req, res) {
         const id = req.params.id
-        const userId = req.params.userId
+        const userId = req.session.userId
 
         let update = {}
-        if (userId !== '') {
+        if (userId) {
             update = { $addToSet: { views: userId } }
         }
 
@@ -158,7 +158,7 @@ module.exports = {
 
     like: async function (req, res) {
         const photoId = req.params.photoId
-        const userId = req.params.userId
+        const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { likes: userId }, $pull: { dislikes: userId } }, { new: true })
@@ -173,7 +173,7 @@ module.exports = {
 
     dislike: async function (req, res) {
         const photoId = req.params.photoId
-        const userId = req.params.userId
+        const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { dislikes: userId }, $pull: { likes: userId } }, { new: true })
@@ -188,7 +188,8 @@ module.exports = {
 
     unlike: async function (req, res) {
         const photoId = req.params.photoId
-        const userId = req.params.userId
+        const userId = req.session.userId
+
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { likes: userId } }, { new: true })
@@ -203,7 +204,7 @@ module.exports = {
 
     undislike: async function (req, res) {
         const photoId = req.params.photoId
-        const userId = req.params.userId
+        const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { dislikes: userId } }, { new: true })
