@@ -12,6 +12,7 @@ function Vote({ photo }) {
   async function handleVote(vote) {
     try {
       const res = await fetch(`${baseUrl}/${vote}/${photo._id}`, {
+        method: "PUT",
         credentials: "include",
       })
       const data = await res.json()

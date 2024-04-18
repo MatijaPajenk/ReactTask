@@ -36,7 +36,7 @@ module.exports = {
     /**
      * photoController.show()
      */
-    show: function (req, res) {
+    show: async function (req, res) {
         const id = req.params.id
         const userId = req.session.userId
 
@@ -45,28 +45,28 @@ module.exports = {
             update = { $addToSet: { views: userId } }
         }
 
-        PhotoModel.findByIdAndUpdate(id, update)
-            .populate('postedBy')
-            .exec(function (err, photo) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when getting photo.',
-                        error: err
-                    })
-                }
+        try {
+            let photo = await PhotoModel.findByIdAndUpdate(id, update)
+                .populate('postedBy')
+                .exec()
 
-                if (!photo) {
-                    return res.status(404).json({
-                        message: 'No such photo'
-                    })
-                }
+            if (!photo) {
+                return res.status(404).json({
+                    message: 'No such photo'
+                })
+            }
 
-                photo = photo.toObject()
-                photo.postedOn = new Date(photo.postedOn).toLocaleString()
-                photo.details = true
+            photo = photo.toObject()
+            photo.postedOn = new Date(photo.postedOn).toLocaleString()
+            photo.details = true
 
-                return res.json(photo)
+            return res.json(photo)
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when getting photo.',
+                error: err
             })
+        }
     },
 
     /**
@@ -157,12 +157,12 @@ module.exports = {
     },
 
     like: async function (req, res) {
-        const photoId = req.params.photoId
+        const photoId = req.params.id
         const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { likes: userId }, $pull: { dislikes: userId } }, { new: true })
-            return res.status(200).json(photo)
+            return res.status(200).json({ likes: photo.likes, dislikes: photo.dislikes })
         } catch (err) {
             return res.status(500).json({
                 message: 'Error when liking photo',
@@ -172,12 +172,12 @@ module.exports = {
     },
 
     dislike: async function (req, res) {
-        const photoId = req.params.photoId
+        const photoId = req.params.id
         const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { dislikes: userId }, $pull: { likes: userId } }, { new: true })
-            return res.status(200).json(photo)
+            return res.status(200).json({ likes: photo.likes, dislikes: photo.dislikes })
         } catch (err) {
             return res.status(500).json({
                 message: 'Error when liking photo',
@@ -187,13 +187,13 @@ module.exports = {
     },
 
     unlike: async function (req, res) {
-        const photoId = req.params.photoId
+        const photoId = req.params.id
         const userId = req.session.userId
 
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { likes: userId } }, { new: true })
-            return res.status(200).json(photo)
+            return res.status(200).json({ likes: photo.likes, dislikes: photo.dislikes })
         } catch (err) {
             return res.status(500).json({
                 message: 'Error when liking photo',
@@ -203,12 +203,12 @@ module.exports = {
     },
 
     undislike: async function (req, res) {
-        const photoId = req.params.photoId
+        const photoId = req.params.id
         const userId = req.session.userId
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $pull: { dislikes: userId } }, { new: true })
-            return res.status(200).json(photo)
+            return res.status(200).json({ likes: photo.likes, dislikes: photo.dislikes })
         } catch (err) {
             return res.status(500).json({
                 message: 'Error when liking photo',

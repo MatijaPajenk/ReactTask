@@ -17,7 +17,15 @@ function Photo({ photo }) {
         </p>
         <p>Views: {photo.views.length || 0}</p>
         <i>
-          {photo.postedBy.username},<br />
+          {photo.postedBy.avatar && (
+            <img
+              src={baseUrl + photo.postedBy.avatar}
+              alt="avatar"
+              className="avatar-small"
+            />
+          )}
+          {photo.postedBy.username},
+          <br />
           <small>{photo.postedOn}</small>
         </i>
       </article>

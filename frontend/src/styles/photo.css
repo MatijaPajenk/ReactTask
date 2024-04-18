@@ -28,3 +28,16 @@
 .photo-link {
   text-decoration: none;
 }
+
+.avatar-small {
+  width: 3em;
+  height: 3em;
+  margin: 0.5em;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
