@@ -25,6 +25,7 @@ module.exports = {
                     photo = photo.toObject()
                     photo.postedOn = new Date(photo.postedOn).toLocaleString()
                     photo.details = false
+                    photo.nsfw = photo.nsfw.length > 1
                     return photo
                 })
 
@@ -59,6 +60,7 @@ module.exports = {
             photo = photo.toObject()
             photo.postedOn = new Date(photo.postedOn).toLocaleString()
             photo.details = true
+            photo.nsfw = photo.nsfw.length > 1
 
             return res.json(photo)
         } catch (err) {
@@ -216,4 +218,19 @@ module.exports = {
             })
         }
     },
+
+    nsfw: async function (req, res) {
+        const photoId = req.params.id
+        const userId = req.session.userId
+
+        try {
+            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { nsfw: userId } }, { new: true })
+            return res.status(200).json({ nsfw: photo.nsfw.length > 1 })
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Error when marking photo as nsfw',
+                error: err
+            })
+        }
+    }
 }

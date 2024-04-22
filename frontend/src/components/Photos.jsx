@@ -4,6 +4,7 @@ import React from "react"
 
 function Photos() {
   const [photos, setPhotos] = useState([])
+  // const [seeNsfw, setSeeNsfw] = useState(false)
   useEffect(function () {
     const getPhotos = async function () {
       const res = await fetch("http://localhost:3001/photos", {
@@ -17,10 +18,15 @@ function Photos() {
 
   return (
     <div>
+      {/* <button onClick={() => setSeeNsfw(!seeNsfw)}>
+        See {seeNsfw ? "SFW" : "NSFW"}
+      </button> */}
       <ul>
-        {photos.map((photo) => (
-          <Photo photo={photo} key={photo._id}></Photo>
-        ))}
+        {photos
+          .filter((photo) => photo.nsfw === false)
+          .map((photo) => (
+            <Photo photo={photo} key={photo._id}></Photo>
+          ))}
       </ul>
     </div>
   )

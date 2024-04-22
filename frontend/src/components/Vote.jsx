@@ -8,6 +8,7 @@ function Vote({ photo }) {
   const baseUrl = "http://localhost:3001/photos"
   const [likes, setLikes] = useState(photo.likes)
   const [dislikes, setDislikes] = useState(photo.dislikes)
+  const [nsfw, setNsfw] = useState(photo.nsfw.length > 1 || false)
 
   async function handleVote(vote) {
     try {
@@ -18,6 +19,20 @@ function Vote({ photo }) {
       const data = await res.json()
       setLikes(data.likes)
       setDislikes(data.dislikes)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async function handleNsfw() {
+    try {
+      const res = await fetch(`${baseUrl}/nsfw/${photo._id}`, {
+        method: "PUT",
+        credentials: "include",
+      })
+      const data = await res.json()
+      console.log("nsfw: ", data.nsfw)
+      setNsfw(data.nsfw)
     } catch (err) {
       console.error(err)
     }
@@ -44,6 +59,11 @@ function Vote({ photo }) {
         <i
           className="fa-regular fa-thumbs-down vote-icon"
           onClick={() => handleVote("dislike")}></i>
+      )}
+      {!nsfw && (
+        <i
+          className="fa-solid fa-eye-slash vote-icon"
+          onClick={() => handleNsfw()}></i>
       )}
     </article>
   )

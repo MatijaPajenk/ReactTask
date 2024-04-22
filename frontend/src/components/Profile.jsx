@@ -42,27 +42,29 @@ function Profile() {
         <div className="line"></div>
         <h1>{profile.username}</h1>
         <h5>{profile.email}</h5>
-        <table class="striped stats">
+        <table className="striped stats">
           <thead data-theme="light">
-            <th>
-              <i class="fa-solid fa-image"></i>
-            </th>
-            <th>
-              <i class="fa-solid fa-thumbs-up"></i>
-            </th>
-            <th>
-              <i class="fa-solid fa-thumbs-down"></i>
-            </th>
-            <th>
-              <i class="fa-solid fa-comment"></i>
-            </th>
+            <tr>
+              <th>
+                <i className="fa-solid fa-image"></i>
+              </th>
+              <th>
+                <i className="fa-solid fa-thumbs-up"></i>
+              </th>
+              <th>
+                <i className="fa-solid fa-thumbs-down"></i>
+              </th>
+              <th>
+                <i className="fa-solid fa-comment"></i>
+              </th>
+            </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
+              <td>{profile.photoCount}</td>
+              <td>{profile.likes}</td>
+              <td>{profile.dislikes}</td>
+              <td>{profile.commentCount}</td>
             </tr>
           </tbody>
         </table>

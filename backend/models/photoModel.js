@@ -13,6 +13,7 @@ var photoSchema = new Schema({
 	'views': [Schema.Types.ObjectId],
 	'likes': [Schema.Types.ObjectId],
 	'dislikes': [Schema.Types.ObjectId],
+	'nsfw': [Schema.Types.ObjectId]
 })
 
 module.exports = mongoose.model('photo', photoSchema)

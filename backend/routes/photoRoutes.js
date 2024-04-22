@@ -21,6 +21,7 @@ router.get('/:id', photoController.show)
 
 router.post('/', requiresLogin, upload.single('image'), photoController.create)
 
+router.put('/nsfw/:id', photoController.nsfw)
 router.put('/like/:id', photoController.like)
 router.put('/dislike/:id', photoController.dislike)
 router.put('/unlike/:id', photoController.unlike)

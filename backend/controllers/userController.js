@@ -1,4 +1,6 @@
 var UserModel = require('../models/userModel.js')
+var PhotoModel = require('../models/photoModel.js')
+var CommentModel = require('../models/commentModel.js')
 
 /**
  * userController.js
@@ -51,6 +53,9 @@ module.exports = {
      * userController.create()
      */
     create: function (req, res) {
+
+
+
         var user = new UserModel({
             username: req.body.username,
             password: req.body.password,
@@ -147,23 +152,30 @@ module.exports = {
         })
     },
 
-    profile: function (req, res, next) {
+    profile: async function (req, res, next) {
         try {
-            UserModel.findById(req.session.userId)
-                .exec(function (error, user) {
-                    if (error) {
-                        return next(error)
-                    } else {
-                        if (user === null) {
-                            var err = new Error('Not authorized, go back!')
-                            err.status = 400
-                            return next(err)
-                        } else {
-                            //return res.render('user/profile', user);
-                            return res.json(user)
-                        }
-                    }
+            var user = await UserModel.findById(req.session.userId).exec()
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'No such user'
                 })
+            }
+
+            const photos = await PhotoModel.find({ postedBy: req.session.userId }).exec()
+
+            const likes = photos.reduce((acc, photo) => acc + photo.likes.length, 0)
+            const dislikes = photos.reduce((acc, photo) => acc + photo.dislikes.length, 0)
+
+            const comments = await CommentModel.find({ postedBy: req.session.userId }).exec()
+
+            user = user.toObject()
+            user.photoCount = photos.length || 0
+            user.commentCount = comments.length || 0
+            user.likes = likes
+            user.dislikes = dislikes
+
+            return res.json(user)
         } catch (error) {
             return res.status(500).json({
                 message: 'Error when getting user',
