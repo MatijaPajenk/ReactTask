@@ -53,9 +53,6 @@ module.exports = {
      * userController.create()
      */
     create: function (req, res) {
-
-
-
         var user = new UserModel({
             username: req.body.username,
             password: req.body.password,
@@ -217,4 +214,9 @@ module.exports = {
             return res.json(user)
         })
     },
+
+    csrfToken: function (req, res) {
+
+        res.json({ csrfToken: req.csrfToken() })
+    }
 }

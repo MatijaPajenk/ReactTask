@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { UserContext } from "../userContext"
 import { Navigate } from "react-router-dom"
+import "../styles/form.css"
 
 function Login() {
   const [username, setUsername] = useState("")
@@ -30,7 +31,7 @@ function Login() {
   }
 
   return (
-    <form onSubmit={Login}>
+    <form onSubmit={Login} className="form-medium">
       {userContext.user ? <Navigate replace to="/" /> : ""}
       <input
         type="text"

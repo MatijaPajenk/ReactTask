@@ -5,6 +5,9 @@ var userController = require('../controllers/userController.js')
 var multer = require('multer')
 var upload = multer({ dest: 'public/images/' })
 
+const csrf = require('csurf')
+const csrfProtection = csrf({ cookie: true })
+
 function requiresLogin(req, res, next) {
     if (req.session && req.session.userId) {
         return next()
@@ -18,12 +21,13 @@ function requiresLogin(req, res, next) {
 router.get('/', userController.list)
 //router.get('/register', userController.showRegister);
 //router.get('/login', userController.showLogin);
+router.get('/csrf-token', userController.csrfToken)
 router.get('/profile', userController.profile)
 router.get('/logout', userController.logout)
 router.get('/:id', userController.show)
 
-router.post('/', userController.create)
-router.post('/login', userController.login)
+router.post('/', csrfProtection, userController.create)
+router.post('/login', csrfProtection, userController.login)
 
 router.put('/changeAvatar', requiresLogin, upload.single('avatar'), userController.changeAvatar)
 router.put('/:id', userController.update)
