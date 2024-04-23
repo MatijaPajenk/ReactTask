@@ -6,6 +6,7 @@ var upload = multer({ dest: 'public/images/' })
 var router = express.Router()
 var photoController = require('../controllers/photoController.js')
 
+
 function requiresLogin(req, res, next) {
     if (req.session && req.session.userId) {
         return next()

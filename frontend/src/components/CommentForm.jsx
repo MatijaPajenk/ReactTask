@@ -6,6 +6,7 @@ function CommentForm({ photoId, handleCommentForm }) {
         name="content"
         placeholder="Comment"
         style={{ resize: "none" }}
+        required
       />
       <button type="submit">Submit</button>
     </form>

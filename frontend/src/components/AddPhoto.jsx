@@ -18,6 +18,7 @@ function AddPhoto(props) {
     formData.append("image", file)
     const res = await fetch("http://localhost:3001/photos", {
       method: "POST",
+      headers: { "CSRF-Token": userContext.user.csrfToken },
       credentials: "include",
       body: formData,
     })

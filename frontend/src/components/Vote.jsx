@@ -15,6 +15,7 @@ function Vote({ photo }) {
       const res = await fetch(`${baseUrl}/${vote}/${photo._id}`, {
         method: "PUT",
         credentials: "include",
+        headers: { "CSRF-Token": userContext.user.csrfToken },
       })
       const data = await res.json()
       setLikes(data.likes)
@@ -28,10 +29,10 @@ function Vote({ photo }) {
     try {
       const res = await fetch(`${baseUrl}/nsfw/${photo._id}`, {
         method: "PUT",
+        headers: { "CSRF-Token": userContext.user.csrfToken },
         credentials: "include",
       })
       const data = await res.json()
-      console.log("nsfw: ", data.nsfw)
       setNsfw(data.nsfw)
     } catch (err) {
       console.error(err)

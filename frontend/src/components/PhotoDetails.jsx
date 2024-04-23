@@ -56,7 +56,10 @@ function PhotoDetails() {
       const res = await fetch(`http://localhost:3001/comments/${id}`, {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "CSRF-Token": user.csrfToken,
+        },
         body: JSON.stringify({
           content: content,
         }),

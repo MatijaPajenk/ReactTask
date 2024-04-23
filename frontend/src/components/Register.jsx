@@ -31,7 +31,10 @@ function Register() {
     const res = await fetch("http://localhost:3001/users", {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json", "CSRF-Token": csrfToken },
+      headers: {
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken,
+      },
       body: JSON.stringify({
         email: email,
         username: username,
@@ -80,7 +83,6 @@ function Register() {
       <br />
       <input type="submit" name="submit" value="Register" />
       <label>{error}</label>
-      <input type="hidden" name="_csrf" value={csrfToken} />
     </form>
   )
 }
