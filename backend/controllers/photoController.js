@@ -60,7 +60,7 @@ module.exports = {
             photo = photo.toObject()
             photo.postedOn = new Date(photo.postedOn).toLocaleString()
             photo.details = true
-            photo.nsfw = photo.nsfw.length > 1
+            photo.nsfw = photo.nsfw.length || 0
 
             return res.json(photo)
         } catch (err) {
@@ -225,7 +225,7 @@ module.exports = {
 
         try {
             const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { nsfw: userId } }, { new: true })
-            return res.status(200).json({ nsfw: photo.nsfw.length > 1 })
+            return res.status(200).json({ nsfw: photo.nsfw.length })
         } catch (err) {
             return res.status(500).json({
                 message: 'Error when marking photo as nsfw',

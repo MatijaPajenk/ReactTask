@@ -1,5 +1,30 @@
+.vote {
+  height: 5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .vote-icon {
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   margin: 0 0.5em;
+}
+
+.none {
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+}
+
+.votes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.votes span {
+  font-size: 1.5em;
 }

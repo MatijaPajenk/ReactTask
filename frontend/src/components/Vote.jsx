@@ -8,7 +8,7 @@ function Vote({ photo }) {
   const baseUrl = "http://localhost:3001/photos"
   const [likes, setLikes] = useState(photo.likes)
   const [dislikes, setDislikes] = useState(photo.dislikes)
-  const [nsfw, setNsfw] = useState(photo.nsfw.length > 1 || false)
+  const [nsfw, setNsfw] = useState(photo.nsfw)
 
   async function handleVote(vote) {
     try {
@@ -40,32 +40,36 @@ function Vote({ photo }) {
   }
 
   return (
-    <article>
-      {likes.length}
-      {likes.includes(userContext.user._id) ? (
-        <i
-          className="fa-solid fa-thumbs-up vote-icon"
-          onClick={() => handleVote("unlike")}></i>
-      ) : (
-        <i
-          className="fa-regular fa-thumbs-up vote-icon"
-          onClick={() => handleVote("like")}></i>
-      )}
-      {dislikes.length}
-      {dislikes.includes(userContext.user._id) ? (
-        <i
-          className="fa-solid fa-thumbs-down vote-icon"
-          onClick={() => handleVote("undislike")}></i>
-      ) : (
-        <i
-          className="fa-regular fa-thumbs-down vote-icon"
-          onClick={() => handleVote("dislike")}></i>
-      )}
-      {!nsfw && (
+    <article className="vote">
+      <div id="likes" className="votes">
+        <span>{likes.length}</span>
+        {likes.includes(userContext.user._id) ? (
+          <i
+            className="fa-solid fa-thumbs-up vote-icon"
+            onClick={() => handleVote("unlike")}></i>
+        ) : (
+          <i
+            className="fa-regular fa-thumbs-up vote-icon"
+            onClick={() => handleVote("like")}></i>
+        )}
+      </div>
+      <div id="dislikes" className="votes">
+        <span>{dislikes.length}</span>
+        {dislikes.includes(userContext.user._id) ? (
+          <i
+            className="fa-solid fa-thumbs-down vote-icon"
+            onClick={() => handleVote("undislike")}></i>
+        ) : (
+          <i
+            className="fa-regular fa-thumbs-down vote-icon"
+            onClick={() => handleVote("dislike")}></i>
+        )}
+      </div>
+      <button data-tooltip={"NSFW: " + nsfw} className="none">
         <i
           className="fa-solid fa-eye-slash vote-icon"
           onClick={() => handleNsfw()}></i>
-      )}
+      </button>
     </article>
   )
 }

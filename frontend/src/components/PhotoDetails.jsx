@@ -6,6 +6,7 @@ import Loading from "./Loading"
 import Vote from "./Vote"
 import Comments from "./Comments"
 import CommentForm from "./CommentForm"
+import "../styles/photoDetails.css"
 
 function PhotoDetails() {
   const id = useParams().id
@@ -81,14 +82,20 @@ function PhotoDetails() {
 
   return (
     <div>
-      <Photo photo={photo} key={photo._id}></Photo>
-      {user._id !== "" && <Vote photo={photo}></Vote>}
-      {user._id !== "" && (
-        <CommentForm
-          photoId={photo._id}
-          handleCommentForm={handleCommentForm}></CommentForm>
-      )}
-      <Comments comments={comments}></Comments>
+      <div className="flex">
+        <div className="left">
+          <Photo photo={photo} key={photo._id}></Photo>
+          {user._id !== "" && <Vote photo={photo}></Vote>}
+        </div>
+        <div className="right">
+          {user._id !== "" && (
+            <CommentForm
+              photoId={photo._id}
+              handleCommentForm={handleCommentForm}></CommentForm>
+          )}
+          <Comments comments={comments}></Comments>
+        </div>
+      </div>
     </div>
   )
 }

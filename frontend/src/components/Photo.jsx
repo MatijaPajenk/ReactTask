@@ -5,14 +5,19 @@ function Photo({ photo }) {
   const photoUrl = `/photos/${photo._id}`
   return (
     <>
-      <article className="photoArticle">
+      <article className="photo-article">
         <a href={photoUrl} className="photo-link">
           <h2 className={photo.details ? "text-expanded" : "text-limited"}>
             {photo.title}
+            {photo.nsfw && " (NSFW)"}
           </h2>
         </a>
         <img className="photo" src={baseUrl + photo.path} alt={photo.title} />
-        <p className={photo.details ? "text-expanded" : "text-limited"}>
+        <p
+          className={
+            "photo-description " +
+            (photo.details ? "text-expanded" : "text-limited")
+          }>
           {photo.description}
         </p>
         <p>Views: {photo.views.length || 0}</p>

@@ -1,0 +1,6 @@
+.photo-list {
+  margin-top: 1em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 33em;
+}

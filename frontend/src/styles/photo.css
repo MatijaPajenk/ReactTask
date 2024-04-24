@@ -1,4 +1,8 @@
-.photoArticle:hover {
+.photo-article {
+  height: 100%;
+}
+
+.photo-article:hover {
   & a > h2 {
     transition: 0.4s all;
     color: var(--pico-primary);
@@ -17,6 +21,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.photo-description {
+  height: 2.5em;
 }
 
 .text-expanded {

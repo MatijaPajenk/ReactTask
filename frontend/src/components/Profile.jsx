@@ -73,10 +73,10 @@ function Profile() {
       <form onSubmit={handleAddAvatar} className="avatar-form">
         <article>
           <label>{profile.avatar ? "Change avatar" : "Upload avatar"}</label>
-          <div className="flex">
-            <input type="file" name="avatar" />
-            <button type="submit">OK</button>
-          </div>
+          <input type="file" name="avatar" />
+          <button type="submit" className="btn-small">
+            OK
+          </button>
         </article>
       </form>
     </>
