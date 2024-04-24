@@ -1,5 +1,6 @@
 .photo-article {
   height: 100%;
+  margin: 0;
 }
 
 .photo-article:hover {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Photo from "./Photo"
 import Loading from "./Loading"
 import React from "react"
@@ -8,6 +8,21 @@ function Photos() {
   const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(true)
   const [seeNsfw, setSeeNsfw] = useState(false)
+  const containerRef = useRef(null)
+
+  const handleScroll = (e) => {
+    const scrollAmount = containerRef.current.clientHeight // Adjust as needed
+    const scrollDirection = e.deltaY > 0 ? 1 : -1 // 1 for scrolling down, -1 for scrolling up
+    const scrollDistance = scrollAmount * scrollDirection
+
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        top: scrollDistance,
+        behavior: "smooth", // Optional: Adds smooth scrolling animation
+      })
+    }
+  }
+
   useEffect(function () {
     const getPhotos = async function () {
       const res = await fetch("http://localhost:3001/photos", {
@@ -29,7 +44,7 @@ function Photos() {
       <button onClick={() => setSeeNsfw(!seeNsfw)} className="outline">
         See {seeNsfw ? "SFW" : "all (NSFW included)"}
       </button>
-      <div className="photo-list">
+      <div className="photo-list" ref={containerRef} onWheel={handleScroll}>
         {photos
           .filter((photo) => (!seeNsfw && photo.nsfw === false) || seeNsfw)
           .map((photo) => (

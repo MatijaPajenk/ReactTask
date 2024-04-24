@@ -55,34 +55,37 @@ function Register() {
 
   return (
     <form onSubmit={Register} className="form-medium">
-      <input
-        type="text"
-        name="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <ReCAPTCHA
-        sitekey="6LcvQ8QpAAAAABIQuiynFVpec5OF7XVmLH9oTIZB"
-        onChange={(value) => setCaptcha(value)}
-      />
-      <br />
-      <input type="submit" name="submit" value="Register" />
-      <label>{error}</label>
+      <article>
+        <h2 style={{ textAlign: "center" }}>Register</h2>
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <ReCAPTCHA
+          sitekey="6LcvQ8QpAAAAABIQuiynFVpec5OF7XVmLH9oTIZB"
+          onChange={(value) => setCaptcha(value)}
+        />
+        <br />
+        <input type="submit" name="submit" value="Register" />
+        <label>{error}</label>
+      </article>
     </form>
   )
 }

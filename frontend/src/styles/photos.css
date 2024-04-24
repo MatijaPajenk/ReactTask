@@ -3,4 +3,6 @@
   overflow-x: hidden;
   overflow-y: scroll;
   height: 33em;
+  scrollbar-width: none;
+  transition: all 0.4s;
 }

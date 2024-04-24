@@ -49,23 +49,26 @@ function Login() {
 
   return (
     <form onSubmit={Login} className="form-medium">
-      {userContext.user ? <Navigate replace to="/" /> : ""}
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input type="submit" name="submit" value="Log in" />
-      <label>{error}</label>
+      <article>
+        <h2 style={{ textAlign: "center" }}>Log in</h2>
+        {userContext.user ? <Navigate replace to="/" /> : ""}
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input type="submit" name="submit" value="Log in" />
+        <label>{error}</label>
+      </article>
     </form>
   )
 }
