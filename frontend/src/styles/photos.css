@@ -1,8 +1,40 @@
 .photo-list {
-  margin-top: 1em;
   overflow-x: hidden;
   overflow-y: scroll;
   height: 33em;
   scrollbar-width: none;
   transition: all 0.4s;
+}
+
+.photos-grid {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1em;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 1em;
+}
+
+.controls i {
+  font-size: 2em;
+  height: 100%;
+  width: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--pico-primary);
+  border-radius: 5px;
+  transition: all 0.4s;
+}
+
+.controls i:hover {
+  cursor: pointer;
+  background-color: var(--pico-primary);
+  color: var(--pico-color);
 }

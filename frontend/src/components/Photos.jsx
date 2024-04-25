@@ -23,6 +23,28 @@ function Photos() {
     }
   }
 
+  const handleScrollUp = () => {
+    const scrollAmount = containerRef.current.clientHeight // Adjust as needed
+
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        top: -scrollAmount,
+        behavior: "smooth", // Optional: Adds smooth scrolling animation
+      })
+    }
+  }
+
+  const handleScrollDown = () => {
+    const scrollAmount = containerRef.current.clientHeight // Adjust as needed
+
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        top: scrollAmount,
+        behavior: "smooth", // Optional: Adds smooth scrolling animation
+      })
+    }
+  }
+
   useEffect(function () {
     const getPhotos = async function () {
       const res = await fetch("http://localhost:3001/photos", {
@@ -44,12 +66,18 @@ function Photos() {
       <button onClick={() => setSeeNsfw(!seeNsfw)} className="outline">
         See {seeNsfw ? "SFW" : "all (NSFW included)"}
       </button>
-      <div className="photo-list" ref={containerRef} onWheel={handleScroll}>
-        {photos
-          .filter((photo) => (!seeNsfw && photo.nsfw === false) || seeNsfw)
-          .map((photo) => (
-            <Photo photo={photo} key={photo._id}></Photo>
-          ))}
+      <div className="photos-grid">
+        <div className="photo-list" ref={containerRef} onWheel={handleScroll}>
+          {photos
+            .filter((photo) => (!seeNsfw && photo.nsfw === false) || seeNsfw)
+            .map((photo) => (
+              <Photo photo={photo} key={photo._id}></Photo>
+            ))}
+        </div>
+        <div className="controls">
+          <i className="fas fa-arrow-up" onClick={handleScrollUp}></i>
+          <i className="fas fa-arrow-down" onClick={handleScrollDown}></i>
+        </div>
       </div>
     </div>
   )
