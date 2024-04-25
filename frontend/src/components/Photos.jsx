@@ -35,12 +35,12 @@ function Photos() {
   }
 
   const handleScrollDown = () => {
-    const scrollAmount = containerRef.current.clientHeight // Adjust as needed
+    const scrollAmount = containerRef.current.clientHeight
 
     if (containerRef.current) {
       containerRef.current.scrollBy({
         top: scrollAmount,
-        behavior: "smooth", // Optional: Adds smooth scrolling animation
+        behavior: "smooth",
       })
     }
   }
@@ -54,6 +54,7 @@ function Photos() {
       setPhotos(data)
       setLoading(false)
     }
+
     getPhotos()
   }, [])
 

@@ -65,10 +65,11 @@ function Vote({ photo }) {
             onClick={() => handleVote("dislike")}></i>
         )}
       </div>
-      <button data-tooltip={"NSFW: " + nsfw} className="none">
-        <i
-          className="fa-solid fa-eye-slash vote-icon"
-          onClick={() => handleNsfw()}></i>
+      <button
+        data-tooltip={"NSFW: " + nsfw}
+        className="none"
+        onClick={() => handleNsfw()}>
+        <i className="fa-solid fa-eye-slash vote-icon"></i>
       </button>
     </article>
   )

@@ -14,8 +14,8 @@
 
 .none {
   background-color: transparent;
+  color: var(--pico-contrast);
   border: none;
-  color: #ccc;
 }
 
 .votes {

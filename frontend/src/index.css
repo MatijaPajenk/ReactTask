@@ -3,3 +3,17 @@
 body {
   overflow: hidden;
 }
+
+@media (prefers-color-scheme: dark) {
+  #root {
+    height: 100vh;
+    background: linear-gradient(135deg, #181c35, #100d10);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #root {
+    height: 100vh;
+    background: linear-gradient(135deg, #f0f0ff, #d0d0ff);
+  }
+}
