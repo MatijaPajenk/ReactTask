@@ -9,6 +9,7 @@ import Profile from "./components/Profile"
 import Logout from "./components/Logout"
 import AddPhoto from "./components/AddPhoto"
 import PhotoDetails from "./components/PhotoDetails"
+import HotPhotos from "./components/HotPhotos"
 
 function App() {
   /**
@@ -55,6 +56,7 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/logout" element={<Logout />}></Route>
             <Route path="/photos/:id" element={<PhotoDetails />}></Route>
+            {/* <Route path="/photos/hot" element={<HotPhotos />}></Route> */}
             <Route path="*" element={<h1>404 - Not Found</h1>}></Route>
           </Routes>
         </div>

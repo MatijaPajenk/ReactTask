@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../userContext"
 import { Navigate } from "react-router-dom"
 import "../styles/profile.css"
+import Loading from "./Loading"
 
 function Profile() {
   const userContext = useContext(UserContext)
   const [profile, setProfile] = useState({})
+  const [loading, setLoading] = useState(true)
   const baseUrl = "http://localhost:3001"
 
   useEffect(function () {
@@ -15,6 +17,7 @@ function Profile() {
       })
       const data = await res.json()
       setProfile(data)
+      setLoading(false)
     }
     getProfile()
   }, [])
@@ -25,11 +28,18 @@ function Profile() {
     formData.append("avatar", e.target.avatar.files[0])
     const res = await fetch("http://localhost:3001/users/changeAvatar", {
       method: "PUT",
+      headers: {
+        "CSRF-Token": userContext.user.csrfToken,
+      },
       body: formData,
       credentials: "include",
     })
     const data = await res.json()
     setProfile(data)
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (

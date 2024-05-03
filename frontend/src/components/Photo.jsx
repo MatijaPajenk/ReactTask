@@ -6,11 +6,21 @@ function Photo({ photo }) {
 
   return (
     <article className="photo-article">
-      <a href={photoUrl} className="photo-link">
+      <a
+        href={photoUrl}
+        className="photo-link"
+        style={{ display: "flex", justifyContent: "space-between" }}>
         <h2 className={photo.details ? "text-expanded" : "text-limited"}>
           {photo.title}
           {photo.details && photo.nsfw > 1 && " (NSFW)"}
           {!photo.details && photo.nsfw && " (NSFW)"}
+        </h2>
+        <h2>
+          <i
+            class="fa-solid fa-eye"
+            style={{ margin: "0 .5em", display: "inline-block" }}>
+            &nbsp;&nbsp;{photo.views.length || 0}
+          </i>
         </h2>
       </a>
       <img className="photo" src={baseUrl + photo.path} alt={photo.title} />
@@ -21,7 +31,7 @@ function Photo({ photo }) {
         }>
         {photo.description}
       </p>
-      <p>Views: {photo.views.length || 0}</p>
+      <p style={{ fontSize: "1.2em" }}></p>
       <i>
         {photo.postedBy.avatar && (
           <img

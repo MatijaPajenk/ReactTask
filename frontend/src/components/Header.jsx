@@ -14,6 +14,9 @@ function Header(props) {
           <li>
             <Link to="/">Home</Link>
           </li>
+          {/* <li>
+            <Link to="/photos/hot">Hot</Link>
+          </li> */}
           <UserContext.Consumer>
             {(context) =>
               context.user ? (

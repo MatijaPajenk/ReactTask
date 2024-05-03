@@ -4,6 +4,7 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 require('dotenv').config()
+
 const csrf = require('csurf')
 const csrfProtection = csrf({ cookie: true })
 
@@ -67,6 +68,11 @@ app.use(session({
 //Tako lahko do njih dostopamo v vseh view-ih (glej layout.hbs)
 app.use(function (req, res, next) {
   res.locals.session = req.session
+  next()
+})
+
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken()
   next()
 })
 

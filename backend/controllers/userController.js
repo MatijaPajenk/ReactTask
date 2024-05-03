@@ -216,7 +216,6 @@ module.exports = {
     },
 
     csrfToken: function (req, res) {
-
         res.json({ csrfToken: req.csrfToken() })
     }
 }
