@@ -9,7 +9,6 @@ import Profile from "./components/Profile"
 import Logout from "./components/Logout"
 import AddPhoto from "./components/AddPhoto"
 import PhotoDetails from "./components/PhotoDetails"
-import HotPhotos from "./components/HotPhotos"
 
 function App() {
   /**

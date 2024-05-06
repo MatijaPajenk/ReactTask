@@ -163,7 +163,13 @@ module.exports = {
         const userId = req.session.userId
 
         try {
-            const photo = await PhotoModel.findByIdAndUpdate(photoId, { $addToSet: { likes: userId }, $pull: { dislikes: userId } }, { new: true })
+            const photo = await PhotoModel.findByIdAndUpdate(photoId,
+                {
+                    $addToSet: { likes: userId },
+                    $pull: { dislikes: userId }
+                },
+                { new: true }
+            )
             return res.status(200).json({ likes: photo.likes, dislikes: photo.dislikes })
         } catch (err) {
             return res.status(500).json({
