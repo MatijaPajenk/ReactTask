@@ -1,6 +1,5 @@
 import { UserContext } from "../userContext"
-import { useContext } from "react"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "../styles/vote.css"
 
 function Vote({ photo }) {
